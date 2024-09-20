@@ -1,0 +1,31 @@
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+local window = DrRayLibrary:Load("Skibidi Sigma Hub", "Default")
+
+local tab = DrRayLibrary.newTab("Main", "4483345998")
+
+tab.newButton("Gojo", "The Real Gojo Animate By kade Aka BaldyToSorcerer/i.am.an.agent", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/BaldyToSorcerer/main/Latest.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yzeedw/Mortalv2-main/main/A%20train/Moveset"))()end)
+
+tab.newButton("KadeHub", "This one script is W and made by papa kade aka baldysorcerer/i.am.an.agent", function()
+getgenv().DisableWarning = true
+loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/KadeHubRepository/main/Latest.lua"))()end)
+
+tab.newButton("Phantasm", "This one script is made by Phantasm itself, support him :)", function()
+getgenv().ToggleKeybind = Enum.KeyCode.RightControl
+getgenv().FreeEmotesTab = false -- if you want free emotes turn this to true
+
+--// https://discord.com/invite/frc7QkX5TY (you should join forreal real....)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ATrainz/main/main/Phantasm-Loader.lua"))()end)
+
+tab.newButton("GojoKyra", "Yeh This scripts are gojo but from kyra, idk when will they release the new version", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SigmaSkibidiUser/SigmaSkibidiUser/main/KyraGojo%20Not%20mine"))()end)
+
+local tab = DrRayLibrary.newTab("Scripts", "44351299901")
+
+tab.newButton("Flash and Repulse", "This script literally i got from transendence", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yzeedw/Mortalv2-main/main/A%20train/Moveset"))()end)
+
+tab.newButton("Revive Gojo", "This scripts can saying gojo things when u respawned ;-;", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/rizzmaster23/n2q83dn/main/rez"))()end)
