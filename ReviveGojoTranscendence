@@ -1,0 +1,57 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local deathPosition = nil
+local animationId = "rbxassetid://15507138928"
+
+local function stopAllAnimations(humanoid)
+    local animationTracks = humanoid:GetPlayingAnimationTracks()
+    for _, track in ipairs(animationTracks) do
+        track:Stop()
+    end
+end
+
+local function onCharacterAdded(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    
+    if deathPosition then
+        character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(deathPosition)
+        stopAllAnimations(humanoid)
+        task.wait()
+        local animation = Instance.new("Animation")
+        animation.AnimationId = animationId
+        local animationTrack = humanoid:LoadAnimation(animation)
+        animationTrack:Play()
+
+        local args = {
+            [1] = "I FINALLY GRASPED IT ON THE VERGE OF DEATH! ",
+            [2] = "All"
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
+
+        wait(2)
+
+        local args = {
+            [1] = "REVERSE CURSED TECHNIQUE! ",
+            [2] = "All"
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
+
+        task.wait(3)
+        animationTrack:Stop()
+        deathPosition = nil  
+    end
+
+    humanoid.HealthChanged:Connect(function(health)
+        if health <= 0 then
+            deathPosition = character:WaitForChild("HumanoidRootPart").Position
+        end
+    end)
+end
+
+player.CharacterAdded:Connect(onCharacterAdded)
+
+if player.Character then
+    onCharacterAdded(player.Character)
+end
