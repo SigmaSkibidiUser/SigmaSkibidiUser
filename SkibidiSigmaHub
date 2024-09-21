@@ -1,31 +1,156 @@
-local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
-local window = DrRayLibrary:Load("Skibidi Sigma Hub", "Default")
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
-local tab = DrRayLibrary.newTab("Main", "4483345998")
+local Window = Rayfield:CreateWindow({
+   Name = "SkibidiSigma Hub",
+   LoadingTitle = "Sigma Hub Loaded😎😎😭",
+   LoadingSubtitle = "I've Put Credits in menu DW",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Sigma Hub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "PrkV33sD", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Key You are Sigma",
+      Subtitle = "Key System",
+      Note = "Key? Nah I'll Put that In my Github",
+      FileName = "SigmaHub", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://github.com/SigmaSkibidiUser/SigmaSkibidiUser/blob/main/Key%20Freak"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
 
-tab.newButton("Gojo", "The Real Gojo Animate By kade Aka BaldyToSorcerer/i.am.an.agent", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/BaldyToSorcerer/main/Latest.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/yzeedw/Mortalv2-main/main/A%20train/Moveset"))()end)
+local MainTab = Window:CreateTab("MainScripts", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
 
-tab.newButton("KadeHub", "This one script is W and made by papa kade aka baldysorcerer/i.am.an.agent", function()
-getgenv().DisableWarning = true
-loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/KadeHubRepository/main/Latest.lua"))()end)
+Rayfield:Notify({
+   Title = "You executed this scripts😎😎🤓",
+   Content = "I Made the hub, but the ui is officialy from rayfields, and the scripts ill credit on 'credits' menu okay :)",
+   Duration = 5,
+   Image = 13047715178,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Ok Sigma!",
+         Callback = function()
+         print("REMEMBER THIS SCRIPTS IS NOT MINE, I JUST MAKING THE HUB AND THE UI ITS FROM RAYFIELDS PLEASE DONT SKID THIS MAN I BEG YOU IM GONNA DIE PLEASE")
+      end
+   },
+},
+})
 
-tab.newButton("Phantasm", "This one script is made by Phantasm itself, support him :)", function()
-getgenv().ToggleKeybind = Enum.KeyCode.RightControl
-getgenv().FreeEmotesTab = false -- if you want free emotes turn this to true
+local Button = MainTab:CreateButton({
+   Name = "Gojo BaldiToSorcerer + Flash Repulse", 
+        Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/BaldyToSorcerer/main/Latest.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yzeedw/Mortalv2-main/main/A%20train/Moveset"))()
+    end,
+})
 
---// https://discord.com/invite/frc7QkX5TY (you should join forreal real....)
+local Button = MainTab:CreateButton({
+   Name = "Kade Hub",
+        Callback = function()
+        getgenv().DisableWarning = true -- Make This "true" to "false" if you are lower than 500 kills read Kade's Dc for it
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/KadeHubRepository/main/Latest.lua"))()
+    end,
+})
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ATrainz/main/main/Phantasm-Loader.lua"))()end)
+local Button = MainTab:CreateButton({
+   Name = "Phantasm",
+        Callback = function()
+        getgenv().ToggleKeybind = Enum.KeyCode.RightControl -- Keybinds Nerds
+        getgenv().FreeEmotesTab = false -- if you want free emotes turn this to true
+        --// https://discord.com/invite/frc7QkX5TY (you should join forreal real....)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ATrainz/main/main/Phantasm-Loader.lua"))()
+    end,
+})
 
-tab.newButton("GojoKyra", "Yeh This scripts are gojo but from kyra, idk when will they release the new version", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/SigmaSkibidiUser/SigmaSkibidiUser/main/KyraGojo%20Not%20mine"))()end)
+local Button = MainTab:CreateButton({
+   Name = "OniHub",
+        Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/CfEQux4K"))()
+        -- Notify Key
+        game.StarterGui:SetCore("SendNotification", {Title="GetKey"; Text="Join https://discord.gg/XPVX8Q6z to get key!"; Duration=6;})
+    end,
+})
 
-local tab = DrRayLibrary.newTab("Scripts", "44351299901")
+local Dropdown = MainTab:CreateDropdown({
+   Name = "More Scripts(You need to execute in 'More Scripts' Menu)",
+   Options = {"Flash Repulse","Revive Gojo Quote","Sukuna, Jotaro, Kj"},
+   CurrentOption = {"Flash Repulse"},
+   MultipleOptions = false,
+   Flag = "More Scripts", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+        print(Option)
+   end,
+})
 
-tab.newButton("Flash and Repulse", "This script literally i got from transendence", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/yzeedw/Mortalv2-main/main/A%20train/Moveset"))()end)
+local OtherSection = MainTab:CreateSection("Other")
 
-tab.newButton("Revive Gojo", "This scripts can saying gojo things when u respawned ;-;", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/rizzmaster23/n2q83dn/main/rez"))()end)
+local Label = MainTab:CreateLabel("Keyboard Scripts to Minimize This hub By pressing 'K' There")
+
+local Button = MainTab:CreateButton({
+   Name = "Keyboard Scripts",
+        Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+   end,
+})
+
+local TPTab = Window:CreateTab("More Scripts", nil) -- Title, Image
+
+local Button1 = TPTab:CreateButton({
+   Name = "Flash Repulse",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yzeedw/Mortalv2-main/main/A%20train/Moveset"))() 
+   end,
+})
+
+local Button2 = TPTab:CreateButton({
+   Name = "Revive Gojo Quote",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/SigmaSkibidiUser/SigmaSkibidiUser/refs/heads/main/ReviveGojoTranscendence"))
+   end,
+})
+
+local Label = TPTab:CreateLabel("Maybe when you executed this scripts it will bugged cuz they have the same UI code like this")
+
+local Button3 = TPTab:CreateButton({
+   Name = "Sukuna, Jotaro, Kj",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/h8h88/hubfr/main/hubfr"))
+   end,
+})
+
+local TPTab = Window:CreateTab("Misc", nil) -- Title, Image
+
+local ColorPicker = TPTab:CreateColorPicker({
+    Name = "Color picker, this one didnt work ;-; js fun",
+    Color = Color3.fromRGB(255, 255, 255),
+    Flag = "ColorPicker1",
+    Callback = function(Value)
+      Window:SetColor(Value)
+   end,
+})
+
+local Keybind = TPTab:CreateKeybind({
+    Name = "Keybind for delete This Gui",
+    CurrentKeybind = "P",
+    HoldToInteract = false,
+    Flag = "Keybind1",
+    Callback = function(Keybind)
+        Rayfield:Destroy()
+    end,
+})
+
+local TPTab = Window:CreateTab("Credits", 18469219667)
+
+local Label = TPTab:CreateLabel("Scripts Made By kylelikesigma1 on Discord")
+
+local Paragraph = TPTab:CreateParagraph({Title = "Credits To PPL makes The Scripts :", Content = "Thanks To:\nKade\nTranscendence\nShiban\nMycroman\nPhantasm\nOniHub\nMortalMan\nTHANKS TO RAYFIELDS FOR MAKING THE UI W"})
+
+local Paragraph = TPTab:CreateParagraph({Title = "They Dc Servers:", Content = "Kade: https://discord.gg/PrkV33sD\nTranscendence: https://discord.gg/5P8WQZqD\nOniHub: https://discord.gg/XPVX8Q6z\nThanks Yall :)"})
