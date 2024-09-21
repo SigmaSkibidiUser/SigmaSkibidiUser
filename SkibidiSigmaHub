@@ -79,6 +79,13 @@ local Button = MainTab:CreateButton({
     end,
 })
 
+local Button = MainTab:CreateButton({
+   Name = "Gojo Kyra",
+        Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/SigmaSkibidiUser/SigmaSkibidiUser/refs/heads/main/KyraGojo%20Not%20mine"))()
+    end,
+})
+
 local Dropdown = MainTab:CreateDropdown({
    Name = "More Scripts(You need to execute in 'More Scripts' Menu)",
    Options = {"Flash Repulse","Revive Gojo Quote","Sukuna, Jotaro, Kj"},
@@ -151,6 +158,6 @@ local TPTab = Window:CreateTab("Credits", 18469219667)
 
 local Label = TPTab:CreateLabel("Scripts Made By kylelikesigma1 on Discord")
 
-local Paragraph = TPTab:CreateParagraph({Title = "Credits To PPL makes The Scripts :", Content = "Thanks To:\nKade\nTranscendence\nShiban\nMycroman\nPhantasm\nOniHub\nMortalMan\nTHANKS TO RAYFIELDS FOR MAKING THE UI W"})
+local Paragraph = TPTab:CreateParagraph({Title = "Credits To PPL makes The Scripts :", Content = "Thanks To:\nKade\nTranscendence\nShiban\nMycroman\nPhantasm\nOniHub\nMortalMan\nKyra"})
 
 local Paragraph = TPTab:CreateParagraph({Title = "They Dc Servers:", Content = "Kade: https://discord.gg/PrkV33sD\nTranscendence: https://discord.gg/5P8WQZqD\nOniHub: https://discord.gg/XPVX8Q6z\nThanks Yall :)"})
