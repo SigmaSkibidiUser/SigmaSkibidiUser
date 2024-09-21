@@ -99,7 +99,7 @@ local Dropdown = MainTab:CreateDropdown({
 
 local OtherSection = MainTab:CreateSection("Other")
 
-local Label = MainTab:CreateLabel("Keyboard Scripts to Minimize This hub By pressing 'K' There")
+local Label = MainTab:CreateLabel("Keyboard Scripts FOR MOBILE to Minimize This hub By pressing 'K' There")
 
 local Button = MainTab:CreateButton({
    Name = "Keyboard Scripts",
@@ -153,6 +153,8 @@ local Keybind = TPTab:CreateKeybind({
         Rayfield:Destroy()
     end,
 })
+
+local Label = TPTab:CreateLabel('Press "K" To Minimize Hub!!')
 
 local TPTab = Window:CreateTab("Credits", 18469219667)
 
