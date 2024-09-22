@@ -1,0 +1,133 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+
+local Window = Fluent:CreateWindow({
+    Title = "TranscentHub 1.00 Alpha",
+    SubTitle = " By Transendence Team",
+    TabWidth = 185,
+    Size = UDim2.fromOffset(625, 500),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+})
+
+local Tabs = {
+    Main = Window:AddTab({ Title = "Main", Icon = "cog" }),
+    Misc = Window:AddTab({ Title = "Misc", Icon = "airplay" }),
+    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" }),
+    Credits = Window:AddTab({ Title = "Credit", Icon = "book"}),
+}
+
+local Options = Fluent.Options
+
+    Fluent:Notify({
+        Title = "Notification",
+        Content = "Oh! JOIN DISCORD NOW FOR MORE UPDATES!",
+        SubContent = "https://discord.gg/5P8WQZqD", 
+        Duration = 5
+    })
+
+    Tabs.Main:AddParagraph({
+         Title = "Important",
+         Content = "Try to not using scripts on ur main, its ur own risk",
+    })
+
+    Tabs.Main:AddButton({
+        Title = "Gojo B2S",
+        Description = "Use saitama to make it work!",
+        Callback = function()
+            Window:Dialog({
+                Title = "Are you sure execute this?",
+                Content = "You need to ReExecute this scripts if you died once!",
+                Buttons = {
+                    {
+                        Title = "Yessir!",
+                        Callback = function()
+                        loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/BaldyToSorcerer/main/Latest.lua"))()
+                        end
+                    },
+                    {
+                        Title = "Nvm.",
+                        Callback = function()
+                            print("Program Ended")
+                        end
+                    }
+                }
+            })
+        end
+    })
+    
+    Tabs.Main:AddButton({
+        Title = "Sukuna Movesets",
+        Description = "Use blade master to make it work!",
+        Callback = function()
+            Window:Dialog({
+                Title = "Are you sure execute this?",
+                Content = "You need to ReExecute this scripts if you died once!",
+                Buttons = {
+                    {
+                        Title = "Yessir!",
+                        Callback = function()
+                        loadstring(game:HttpGet("https://raw.githubusercontent.com/zyrask/Nexus-Base/main/atomic-blademaster%20to%20sukuna"))()
+                        end
+                    },
+                    {
+                        Title = "Nvm.",
+                        Callback = function()
+                            print("Program Ended")
+                        end
+                    }
+                }
+            })
+        end
+    })
+
+    local Slider = Tabs.Main:AddSlider("Slider", {
+        Title = "Walkspeed",
+        Description = "Change ur walkspeed",
+        Default = 2,
+        min = 0,
+        max = 500,
+        Rounding = 1,
+        Callback = function(Value)
+            function enter(player)
+                    wait(2)
+                    local plr = game.Workspace:FindFirstChild(player.Name)
+                    if plr then
+                            local char = plr
+                            char.Humanoid.Walkspeed = (Value)
+                    end
+            end
+            game.Player.ChildAdded:connect(enter)
+        end
+    })
+
+        Slider:OnChanged(function(Value)
+        print("speed changed:", Value)
+    end)
+
+    Slider:SetValue(3)
+
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes({})
+
+InterfaceManager:SetFolder("TranscentScriptHub")
+SaveManager:SetFolder("TranscentHub/TSBG")
+
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
+
+
+Window:SelectTab(1)
+
+Fluent:Notify({
+    Title = "TranscentHub",
+    Content = "The script has been loaded.\n\nJoin Discord! https://discord.gg/5P8WQZqD\nPress 'x' if you wanna close this :D",
+    Duration = 40
+})
+
+SaveManager:LoadAutoloadConfig()
