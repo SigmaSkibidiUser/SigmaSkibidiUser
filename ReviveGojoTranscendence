@@ -4,8 +4,7 @@ local deathPosition = nil
 local animationId = "rbxassetid://15507138928"
 
 local function stopAllAnimations(humanoid)
-    local animationTracks = humanoid:GetPlayingAnimationTracks()
-    for _, track in ipairs(animationTracks) do
+    for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
         track:Stop()
     end
 end
@@ -14,29 +13,27 @@ local function onCharacterAdded(character)
     local humanoid = character:WaitForChild("Humanoid")
     
     if deathPosition then
-        character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(deathPosition)
+        -- Move the character to the death position and play the animation
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(deathPosition)
         stopAllAnimations(humanoid)
         task.wait()
+
         local animation = Instance.new("Animation")
         animation.AnimationId = animationId
         local animationTrack = humanoid:LoadAnimation(animation)
         animationTrack:Play()
 
-        local args = {
-            [1] = "I FINALLY GRASPED IT ON THE VERGE OF DEATH! ",
-            [2] = "All"
-        }
+        -- Chat messages
+        local chatService = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
+        
+        local function sendMessage(message)
+            chatService:WaitForChild("SayMessageRequest"):FireServer(message, "All")
+        end
 
-        game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
-
-        wait(2)
-
-        local args = {
-            [1] = "REVERSE CURSED TECHNIQUE! ",
-            [2] = "All"
-        }
-
-        game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
+        sendMessage("I FINALLY GRASPED IT ON THE VERGE OF DEATH!")
+        task.wait(2)
+        sendMessage("THE TRUE ESSENCE FOR CURSED ENERGY!!")
 
         task.wait(3)
         animationTrack:Stop()
