@@ -1,133 +1,61 @@
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
-local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local deathPosition = nil
+local animationId = "rbxassetid://15507138928"
+local isActive = false -- Flag to control the script's execution
 
-local Window = Fluent:CreateWindow({
-    Title = "TranscentHub 1.00 Alpha",
-    SubTitle = " By Transendence Team",
-    TabWidth = 185,
-    Size = UDim2.fromOffset(625, 500),
-    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
-    Theme = "Dark",
-    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
-})
+local function stopAllAnimations(humanoid)
+    for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+end
 
-local Tabs = {
-    Main = Window:AddTab({ Title = "Main", Icon = "cog" }),
-    Misc = Window:AddTab({ Title = "Misc", Icon = "airplay" }),
-    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" }),
-    Credits = Window:AddTab({ Title = "Credit", Icon = "book"}),
-}
-
-local Options = Fluent.Options
-
-    Fluent:Notify({
-        Title = "Notification",
-        Content = "Oh! JOIN DISCORD NOW FOR MORE UPDATES!",
-        SubContent = "https://discord.gg/5P8WQZqD", 
-        Duration = 5
-    })
-
-    Tabs.Main:AddParagraph({
-         Title = "Important",
-         Content = "Try to not using scripts on ur main, its ur own risk",
-    })
-
-    Tabs.Main:AddButton({
-        Title = "Gojo B2S",
-        Description = "Use saitama to make it work!",
-        Callback = function()
-            Window:Dialog({
-                Title = "Are you sure execute this?",
-                Content = "You need to ReExecute this scripts if you died once!",
-                Buttons = {
-                    {
-                        Title = "Yessir!",
-                        Callback = function()
-                        loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/BaldyToSorcerer/main/Latest.lua"))()
-                        end
-                    },
-                    {
-                        Title = "Nvm.",
-                        Callback = function()
-                            print("Program Ended")
-                        end
-                    }
-                }
-            })
-        end
-    })
+local function onCharacterAdded(character)
+    local humanoid = character:WaitForChild("Humanoid")
     
-    Tabs.Main:AddButton({
-        Title = "Sukuna Movesets",
-        Description = "Use blade master to make it work!",
-        Callback = function()
-            Window:Dialog({
-                Title = "Are you sure execute this?",
-                Content = "You need to ReExecute this scripts if you died once!",
-                Buttons = {
-                    {
-                        Title = "Yessir!",
-                        Callback = function()
-                        loadstring(game:HttpGet("https://raw.githubusercontent.com/zyrask/Nexus-Base/main/atomic-blademaster%20to%20sukuna"))()
-                        end
-                    },
-                    {
-                        Title = "Nvm.",
-                        Callback = function()
-                            print("Program Ended")
-                        end
-                    }
-                }
-            })
-        end
-    })
+    humanoid.HealthChanged:Connect(function(health)
+        if health <= 0 then
+            deathPosition = character:WaitForChild("HumanoidRootPart").Position
+            if isActive then -- Check if the script is active
+                -- Move the character to the death position and play the animation
+                local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+                humanoidRootPart.CFrame = CFrame.new(deathPosition)
+                stopAllAnimations(humanoid)
+                task.wait()
 
-    local Slider = Tabs.Main:AddSlider("Slider", {
-        Title = "Walkspeed",
-        Description = "Change ur walkspeed",
-        Default = 2,
-        min = 0,
-        max = 500,
-        Rounding = 1,
-        Callback = function(Value)
-            function enter(player)
-                    wait(2)
-                    local plr = game.Workspace:FindFirstChild(player.Name)
-                    if plr then
-                            local char = plr
-                            char.Humanoid.Walkspeed = (Value)
-                    end
+                local animation = Instance.new("Animation")
+                animation.AnimationId = animationId
+                local animationTrack = humanoid:LoadAnimation(animation)
+                animationTrack:Play()
+
+                -- Chat messages
+                local chatService = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
+                
+                local function sendMessage(message)
+                    chatService:WaitForChild("SayMessageRequest"):FireServer(message, "All")
+                end
+
+                sendMessage("I FINALLY GRASPED IT ON THE VERGE OF DEATH!")
+                task.wait(2)
+                sendMessage("THE TRUE ESSENCE FOR CURSED ENERGY!!")
+
+                task.wait(3)
+                animationTrack:Stop()
+                deathPosition = nil  
             end
-            game.Player.ChildAdded:connect(enter)
         end
-    })
-
-        Slider:OnChanged(function(Value)
-        print("speed changed:", Value)
     end)
+end
 
-    Slider:SetValue(3)
+player.CharacterAdded:Connect(onCharacterAdded)
 
-SaveManager:SetLibrary(Fluent)
-InterfaceManager:SetLibrary(Fluent)
+if player.Character then
+    onCharacterAdded(player.Character)
+end
 
-SaveManager:IgnoreThemeSettings()
-SaveManager:SetIgnoreIndexes({})
+-- Function to enable or disable the script
+local function setActive(active)
+    isActive = active
+end
 
-InterfaceManager:SetFolder("TranscentScriptHub")
-SaveManager:SetFolder("TranscentHub/TSBG")
-
-InterfaceManager:BuildInterfaceSection(Tabs.Settings)
-SaveManager:BuildConfigSection(Tabs.Settings)
-
-
-Window:SelectTab(1)
-
-Fluent:Notify({
-    Title = "TranscentHub",
-    Content = "The script has been loaded.\n\nJoin Discord! https://discord.gg/5P8WQZqD\nPress 'x' if you wanna close this :D",
-    Duration = 40
-})
-
-SaveManager:LoadAutoloadConfig()
+return setActive -- Return the function to control activation
