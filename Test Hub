@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local deathPosition = nil
 local animationId = "rbxassetid://15507138928"
-local isActive = false -- Flag to control the script's execution
+local isActive = script:Destroy() -- Flag to control the script's execution
 
 local function stopAllAnimations(humanoid)
     for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
@@ -55,7 +55,7 @@ end
 
 -- Function to enable or disable the script
 local function setActive(active)
-    isActive = active
+    isActive = script:Destroy()
 end
 
 return setActive -- Return the function to control activation
