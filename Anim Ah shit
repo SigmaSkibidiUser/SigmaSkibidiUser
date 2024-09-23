@@ -65,7 +65,17 @@ local function playReplacementAnimation(animationId)
 
         local Anim = humanoid:LoadAnimation(AnimAnim)
 
+
+        local startTime = 0
+        
+
         Anim:Play()
+ 
+        Anim:AdjustSpeed(0)
+ 
+        Anim.TimePosition = startTime
+ 
+        Anim:AdjustSpeed(1.2)
 
        
 
@@ -136,52 +146,6 @@ end
 
 humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 
-
-local player = game.Players.LocalPlayer
-
-local character = player.Character or player.CharacterAdded:Wait()
-
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-
-
-local function onBodyVelocityAdded(bodyVelocity)
-
-    if bodyVelocity:IsA("BodyVelocity") then
-
-        bodyVelocity.Velocity = Vector3.new(bodyVelocity.Velocity.X, 0, bodyVelocity.Velocity.Z)
-
-    end
-
-end
-
-
-character.DescendantAdded:Connect(onBodyVelocityAdded)
-
-
-for _, descendant in pairs(character:GetDescendants()) do
-
-    onBodyVelocityAdded(descendant)
-
-end
-
-
-player.CharacterAdded:Connect(function(newCharacter)
-
-    character = newCharacter
-
-    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-
-    character.DescendantAdded:Connect(onBodyVelocityAdded)
-
-   
-
-    for _, descendant in pairs(character:GetDescendants()) do
-
-        onBodyVelocityAdded(descendant)
-
-    end
-
-end)
 
 
 -- Repulse Ult
